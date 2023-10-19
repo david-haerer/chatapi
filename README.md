@@ -11,3 +11,4 @@
   - There is no build step, Alpine.js and Open Props are loaded via CDN.
   - This is done due to a shortage of developer time 🙃
 * Kudos to [@hdsuperman](https://stackoverflow.com/a/75751803/11386095) for the typing effect!
+* Inspired by [Niek/chatgpt-web](https://github.com/Niek/chatgpt-web).
