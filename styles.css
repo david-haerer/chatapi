@@ -2,7 +2,7 @@
 
 :root {
   --100vh: 100%;
-  --max-width: 1080px;
+  --max-width: 960px;
   --background: var(--gray-11);
 }
 
