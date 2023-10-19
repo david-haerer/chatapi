@@ -35,10 +35,10 @@ input {
 
 button {
   margin: var(--size-1);
-  padding: var(--size-2) var(--size-3);
+  padding: var(--size-1) var(--size-3);
   border-radius: var(--radius-4);
   border: none;
-  background: var(--blue-11);
+  background: var(--gray-10);
   border: 1px solid var(--blue-10);
   color: var(--gray-1);
   font-family: var(--font-sans);
@@ -47,6 +47,8 @@ button {
 
 button:hover {
   cursor: pointer;
+  background: var(--gray-9);
+  border: 1px solid var(--blue-9);
 }
 
 ::-webkit-scrollbar {
@@ -79,6 +81,7 @@ header {
   width: 100%;
   max-width: var(--max-width);
   background: var(--background);
+  border-bottom: 1px solid var(--gray-9);
 }
 
 /* -- #menu -- */
@@ -92,16 +95,18 @@ header {
   margin: var(--size-1);
   padding: var(--size-2) var(--size-3);
   font-size: var(--font-size-1);
-  font-weight: normal;
+  font-weight: var(--font-weight-7);
   display: inline-block;
-  border-radius: var(--radius-4);
-  border: 1px solid var(--gray-9);
-  background: var(--gray-11);
 }
 
 #menu #clear {
-  background: var(--red-11);
   border: 1px solid var(--red-10);
+}
+
+#menu #clear:hover {
+  cursor: pointer;
+  background: var(--gray-9);
+  border: 1px solid var(--red-9);
 }
 
 /* -- #key -- */
@@ -155,9 +160,4 @@ header {
   background: var(--background);
   display: grid;
   grid-template-columns: 1fr auto;
-}
-
-#prompt button {
-  background: var(--gray-9);
-  border: 1px solid var(--gray-8);
 }
