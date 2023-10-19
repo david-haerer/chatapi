@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+
+    <link rel="stylesheet" type="text/css" href="/styles.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/styles/default.min.css"
+    />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/highlight.min.js"
+    ></script>
+    <link href="/assets/github-dark.css" rel="stylesheet" />
+
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"
+    ></script>
+
+    <script defer src="/main.js"></script>
+
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+    <link rel="manifest" href="/assets/manifest.json" />
+
+    <title>ChatAPI</title>
+  </head>
+  <body x-data="{ key: $store.chat.key }">
+    <header x-data="{ component: 'menu' }">
+      <div x-show="component === 'menu'" id="menu">
+        <h1>💭 ChatAPI</h1>
+        <button @click="$store.chat.clear()" id="clear">🔥</button>
+        <button @click="component = 'key'">🔑</button>
+      </div>
+      <form x-show="component === 'key'" id="key">
+        <input
+          type="password"
+          id="apiKey"
+          name="apiKey"
+          placeholder="OpenAI API Key"
+          x-model.lazy="key"
+        />
+        <button @click="component = 'menu'" type="submit">🔒</button>
+      </form>
+    </header>
+
+    <main id="chat" x-data="{history: $store.chat.history}">
+      <template x-for="message in history">
+        <div class="message">
+          <template x-if="message.role === 'user'">
+            <div :class="message.role" x-text="message.content"></div>
+          </template>
+          <template x-if="message.role === 'assistant'">
+            <div :class="message.role" x-html="message.html"></div>
+          </template>
+        </div>
+      </template>
+    </main>
+
+    <footer>
+      <form id="prompt" action="/" method="get">
+        <input
+          type="text"
+          id="input"
+          name="input"
+          placeholder="[!img] Prompt…"
+          autocomplete="off"
+          required
+        />
+        <button type="submit">🚀</button>
+      </form>
+    </footer>
+
+    <script>
+      document.addEventListener("alpine:init", () => {
+        Alpine.store("chat", {
+          history: [],
+          languages: [undefined],
+          clear() {
+            this.history.length = 0;
+          },
+          add(role, content) {
+            const N = this.history.length - 1;
+            if (this.history.length && this.history[N].role === role) {
+              this.history[N].content += content;
+              str = this.history[N].content;
+              this.history[N].html = DOMPurify.sanitize(
+                marked.parse(this.history[N].content),
+              );
+            } else {
+              this.history.push({
+                role: role,
+                content: content,
+                html: DOMPurify.sanitize(marked.parse(content)),
+              });
+            }
+
+            const parser = new DOMParser();
+            const html = parser.parseFromString(
+              this.history[this.history.length - 1].html,
+              "text/html",
+            );
+            const code = html.querySelectorAll("pre code");
+            if (!code.length) return;
+            code.forEach((el) => {
+              const language = el.className.split("language-")[1];
+              if (this.languages.includes(language)) return;
+              const script = document.createElement("script");
+              script.src = `https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.8.0/build/languages/${language}.min.js`;
+              document.head.appendChild(script);
+              this.languages.push(language);
+              console.log(language);
+            });
+          },
+          messages() {
+            return this.history.map((message) => {
+              return {
+                role: message.role,
+                content: message.content,
+              };
+            });
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

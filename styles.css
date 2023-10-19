@@ -1,0 +1,157 @@
+@import "https://unpkg.com/open-props"; 
+
+:root {
+  --100vh: 100%;
+  --max-width: 1080px;
+  --background: var(--gray-11);
+}
+
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+body {
+  background: var(--background);
+  color: var(--gray-2);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-1);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+input {
+  margin: var(--size-1);
+  padding: var(--size-2) var(--size-3);
+  background: var(--gray-9);
+  color: var(--gray-1);
+  border-radius: var(--radius-4);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-1);
+  border: none;
+  outline: 1px solid var(--gray-8);
+}
+
+button {
+  margin: var(--size-1);
+  padding: var(--size-2) var(--size-3);
+  border-radius: var(--radius-4);
+  border: none;
+  background: var(--blue-11);
+  border: 1px solid var(--blue-10);
+  color: var(--gray-1);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-1);
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  width: var(--size-2);
+}
+
+::-webkit-scrollbar-track {
+  background: var(--gray-11);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gray-8);
+  border-radius: var(--radius-4);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-9);
+}
+
+pre code {
+  border-radius: var(--radius-2);
+  border: 1px solid var(--gray-9);
+}
+
+/* -- #header -- */
+
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  max-width: var(--max-width);
+  background: var(--background);
+}
+
+/* -- #menu -- */
+
+#menu {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+}
+
+#menu h1 {
+  margin: var(--size-1);
+  padding: var(--size-2) var(--size-3);
+  font-size: var(--font-size-1);
+  font-weight: normal;
+  display: inline-block;
+  border-radius: var(--radius-4);
+  border: 1px solid var(--gray-9);
+  background: var(--gray-11);
+}
+
+#menu #clear {
+  background: var(--red-11);
+  border: 1px solid var(--red-10);
+}
+
+/* -- #key -- */
+
+#key {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+/* -- #chat -- */
+
+#chat {
+  min-height: 0;
+  overflow: auto;
+  margin: var(--size-9) var(--size-1);
+}
+
+#chat .user {
+  padding: var(--size-2);
+  text-align: center;
+  font-weight: bold;
+}
+
+#chat .assistant {
+  padding: var(--size-1);
+  color: var(--gray-3);
+}
+
+#chat .assistant img {
+  width: 100%;
+}
+
+#chat .assistant .error {
+  font-family: var(--font-mono);
+  color: var(--red-8);
+}
+
+/* -- #prompt -- */
+
+#prompt {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  max-width: var(--max-width);
+  background: var(--background);
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+#prompt button {
+  background: var(--gray-9);
+  border: 1px solid var(--gray-8);
+}
