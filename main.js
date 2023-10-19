@@ -4,7 +4,6 @@ function submitKey(event) {
   document.getElementById("apiKey").blur();
 }
 
-
 function submitPrompt(event) {
   event.preventDefault();
 
@@ -27,14 +26,11 @@ async function promptDallE(key, input) {
       Authorization: `Bearer ${key}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({prompt: input}),
+    body: JSON.stringify({ prompt: input }),
   });
   const json = await response.json();
   const url = json.data[0].url;
-  Alpine.store("chat").add(
-    "assistant",
-    `![${input}](${url})`,
-  );
+  Alpine.store("chat").add("assistant", `![${input}](${url})`);
 }
 
 async function promptGPT(key, input) {
@@ -55,7 +51,7 @@ async function promptGPT(key, input) {
   if (!response.ok) {
     Alpine.store("chat").add(
       "assistant",
-      `<span class='error'>Error: POST https://api.openai.com/v1/chat/completions ${response.status}</span>`,
+      `<span class='error'>Error: POST https://api.openai.com/v1/chat/completions ${response.status}</span>`
     );
     return;
   }
@@ -67,7 +63,7 @@ async function promptGPT(key, input) {
   if (!reader) {
     Alpine.store("chat").add(
       "assistant",
-      `<span class='error'>Error: Failed to decode API response</span>`,
+      `<span class='error'>Error: Failed to decode API response</span>`
     );
     return;
   }
@@ -94,7 +90,6 @@ async function promptGPT(key, input) {
     hljs.highlightAll();
     if (dataDone) break;
   }
-
 }
 
 document.getElementById("key").addEventListener("submit", submitKey);
