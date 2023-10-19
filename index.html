@@ -60,6 +60,9 @@
     </header>
 
     <main id="chat" x-data="{history: $store.chat.history}">
+      <p id="usage" x-show="history.length === 0">
+        Prefix your prompt with '!img' to generate images.
+      </p>
       <template x-for="message in history">
         <div class="message">
           <template x-if="message.role === 'user'">
@@ -78,7 +81,7 @@
           type="text"
           id="input"
           name="input"
-          placeholder="[!img] Prompt…"
+          placeholder="Prompt…"
           autocomplete="off"
           required
         />

@@ -113,6 +113,12 @@ header {
 
 /* -- #chat -- */
 
+#usage {
+  text-align: center;
+  color: var(--gray-7);
+  font-style: italic;
+}
+
 #chat {
   min-height: 0;
   overflow: auto;
