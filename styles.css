@@ -21,6 +21,10 @@ body {
   margin: 0 auto;
 }
 
+a {
+  color: var(--blue-7);
+}
+
 input {
   margin: var(--size-1);
   padding: var(--size-2) var(--size-3);
@@ -122,6 +126,10 @@ header {
   text-align: center;
   color: var(--gray-7);
   font-style: italic;
+}
+
+#usage a {
+  color: var(--blue-10);
 }
 
 #chat {

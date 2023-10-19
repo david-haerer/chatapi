@@ -61,7 +61,8 @@
 
     <main id="chat" x-data="{history: $store.chat.history}">
       <p id="usage" x-show="history.length === 0">
-        Prefix your prompt with '!img' to generate images.
+        Prefix your prompt with '!img' to generate images.</br>
+        Find the project on <a target="_blank" href="https://github.com/david-haerer/chatapi">GitHub</a>.
       </p>
       <template x-for="message in history">
         <div class="message">
