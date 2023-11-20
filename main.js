@@ -56,7 +56,7 @@ async function promptGPT(key, input) {
   if (!response.ok) {
     Alpine.store("chat").add(
       "assistant",
-      `<span class='error'>Error: POST https://api.openai.com/v1/chat/completions ${response.status}</span>`
+      `<span class='error'>Error: POST https://api.openai.com/v1/chat/completions ${response.status}</span>`,
     );
     return;
   }
@@ -68,7 +68,7 @@ async function promptGPT(key, input) {
   if (!reader) {
     Alpine.store("chat").add(
       "assistant",
-      `<span class='error'>Error: Failed to decode API response</span>`
+      `<span class='error'>Error: Failed to decode API response</span>`,
     );
     return;
   }
