@@ -26,7 +26,12 @@ async function promptDallE(key, input) {
       Authorization: `Bearer ${key}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ prompt: input }),
+    body: JSON.stringify({
+      model: "dall-e-3",
+      prompt: input,
+      n: 1,
+      size: "1792x1024",
+    }),
   });
   const json = await response.json();
   const url = json.data[0].url;
@@ -42,7 +47,7 @@ async function promptGPT(key, input) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      model: "gpt-4",
+      model: "gpt-4-1106-preview",
       messages: Alpine.store("chat").messages(),
       stream: true,
     }),
