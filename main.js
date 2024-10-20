@@ -17,21 +17,21 @@ function error(message) {
 function submitPrompt(event) {
   event.preventDefault();
 
-  const input = document.getElementById("input").value;
-  Alpine.store("chat").add("user", input);
-  document.getElementById("input").value = "";
+  const prompt = document.getElementById("prompt").value;
+  Alpine.store("chat").add("user", prompt);
+  document.getElementById("prompt").value = "";
   const keyOAI = localStorage.getItem("keyOAI");
   const keyBFL = localStorage.getItem("keyBFL");
 
-  if (input.startsWith("!img")) {
-    promptDallE(key, input.slice(4));
+  if (prompt.startsWith("!img")) {
+    promptImage(keyBFL, prompt.slice(4));
   } else {
-    promptGPT(key, input);
+    promptText(keyOAI);
   }
 }
 
-async function promptDallE(key, input) {
   const response = await fetch("https://api.openai.com/v1/images/generations", {
+async function promptImage(key, prompt) {
     method: "POST",
     headers: {
       Authorization: `Bearer ${key}`,
@@ -49,7 +49,7 @@ async function promptDallE(key, input) {
   Alpine.store("chat").add("assistant", `![${input}](${url})`);
 }
 
-async function promptGPT(key, input) {
+async function promptText(key) {
   // Source: https://stackoverflow.com/a/75751803/11386095
   const response = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
@@ -112,8 +112,8 @@ async function promptGPT(key, input) {
 
 document.getElementById("keyOAI").addEventListener("submit", submitKeyOAI);
 document.getElementById("keyBFL").addEventListener("submit", submitKeyBFL);
-document.getElementById("prompt").addEventListener("submit", submitPrompt);
-document.getElementById("input").focus();
+document.getElementById("submit").addEventListener("submit", submitPrompt);
+document.getElementById("prompt").focus();
 
 const keyOAI = localStorage.getItem("keyOAI");
 if (keyOAI) {
