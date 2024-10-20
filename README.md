@@ -1,11 +1,11 @@
 # 💭 ChatAPI
 
-*ChatGPT by API.*
+*Chat with AI via API.*
 
 ## About
 
-* This is a pure-frontend PWA using the [OpenAI API](https://platform.openai.com/docs/introduction).
-* The API key is stored in the browser local storage.
+* This is a pure-frontend PWA using the [OpenAI](https://platform.openai.com/docs/introduction) and [Black Forest Labs](https://docs.bfl.ml/) APIs.
+* The API keys are stored in the local storage of the browser.
 * The app uses [Alpine.js](https://alpinejs.dev/) and [Open Props](https://open-props.style/).
   - Code styling is done by [Prettier](https://prettier.io/).
   - There is no build step, Alpine.js and Open Props are loaded via CDN.
