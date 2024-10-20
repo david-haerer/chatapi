@@ -1,7 +1,13 @@
-function submitKey(event) {
+function submitKeyOAI(event) {
   event.preventDefault();
-  localStorage.setItem("key", document.getElementById("apiKey").value);
-  document.getElementById("apiKey").blur();
+  localStorage.setItem("keyOAI", document.getElementById("apiKeyOAI").value);
+  document.getElementById("apiKeyOAI").blur();
+}
+
+function submitKeyBFL(event) {
+  event.preventDefault();
+  localStorage.setItem("keyBFL", document.getElementById("apiKeyBFL").value);
+  document.getElementById("apiKeyBFL").blur();
 }
 
 function error(message) {
@@ -14,7 +20,8 @@ function submitPrompt(event) {
   const input = document.getElementById("input").value;
   Alpine.store("chat").add("user", input);
   document.getElementById("input").value = "";
-  const key = localStorage.getItem("key");
+  const keyOAI = localStorage.getItem("keyOAI");
+  const keyBFL = localStorage.getItem("keyBFL");
 
   if (input.startsWith("!img")) {
     promptDallE(key, input.slice(4));
@@ -103,13 +110,19 @@ async function promptGPT(key, input) {
   }
 }
 
-document.getElementById("key").addEventListener("submit", submitKey);
+document.getElementById("keyOAI").addEventListener("submit", submitKeyOAI);
+document.getElementById("keyBFL").addEventListener("submit", submitKeyBFL);
 document.getElementById("prompt").addEventListener("submit", submitPrompt);
 document.getElementById("input").focus();
 
-const key = localStorage.getItem("key");
-if (key) {
-  document.getElementById("apiKey").value = key;
+const keyOAI = localStorage.getItem("keyOAI");
+if (keyOAI) {
+  document.getElementById("apiKeyOAI").value = keyOAI;
+}
+
+const keyBFL = localStorage.getItem("keyBFL");
+if (keyBFL) {
+  document.getElementById("apiKeyBFL").value = keyBFL;
 }
 
 marked.setOptions({

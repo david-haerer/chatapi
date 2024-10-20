@@ -40,7 +40,7 @@
 
     <title>ChatAPI</title>
   </head>
-  <body x-data="{ key: $store.chat.key }">
+  <body x-data="{ keyOAI: $store.chat.keyOAI, keyBFL: $store.chat.keyBFL }">
     <header x-data="{ component: 'menu' }">
       <div x-show="component === 'menu'" id="menu">
         <h1>💭 ChatAPI</h1>
@@ -51,20 +51,44 @@
         >
           🔥
         </button>
-        <button @click="component = 'key'" title="Update API key">🔑</button>
-      </div>
-      <form x-show="component === 'key'" id="key">
-        <input
-          type="password"
-          id="apiKey"
-          name="apiKey"
-          placeholder="OpenAI API Key"
-          x-model.lazy="key"
-        />
-        <button @click="component = 'menu'" type="submit" title="Save API key">
-          🔒
+        <button @click="component = 'keys'" title="Update OAI API key">
+          🔑
         </button>
-      </form>
+      </div>
+      <div x-show="component === 'keys'" id="keys">
+        <form id="keyOAI" class="key">
+          <input
+            type="password"
+            id="apiKeyOAI"
+            name="apiKeyOAI"
+            placeholder="OpenAI API Key"
+            x-model.lazy="keyOAI"
+          />
+          <button
+            @click="component = 'menu'"
+            type="submit"
+            title="Save API key"
+          >
+            🔒
+          </button>
+        </form>
+        <form id="keyBFL" class="key">
+          <input
+            type="password"
+            id="apiKeyBFL"
+            name="apiKeyBFL"
+            placeholder="Black Forest Labs API Key"
+            x-model.lazy="keyBFL"
+          />
+          <button
+            @click="component = 'menu'"
+            type="submit"
+            title="Save API key"
+          >
+            🔒
+          </button>
+        </form>
+      </div>
     </header>
 
     <main id="chat" x-data="{history: $store.chat.history}">
