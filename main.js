@@ -58,7 +58,7 @@ async function promptText(key) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      model: "gpt-4-1106-preview",
+      model: "gpt-4o",
       messages: Alpine.store("chat").messages(),
       stream: true,
     }),
