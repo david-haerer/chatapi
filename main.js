@@ -30,23 +30,47 @@ function submitPrompt(event) {
   }
 }
 
-  const response = await fetch("https://api.openai.com/v1/images/generations", {
 async function promptImage(key, prompt) {
+  const response = await fetch("https://api.bfl.ml/v1/flux-pro-1.1", {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${key}`,
+      accept: "application/json",
+      "x-key": key,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      model: "dall-e-3",
-      prompt: input,
-      n: 1,
-      size: "1792x1024",
+      prompt: prompt,
+      width: 1024,
+      height: 768,
     }),
   });
   const json = await response.json();
-  const url = json.data[0].url;
-  Alpine.store("chat").add("assistant", `![${input}](${url})`);
+  const id = json["id"];
+  const polling = setInterval(async () => {
+    const response = await fetch(`https://api.bfl.ml/v1/get_result?id=${id}`, {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        "x-key": key,
+      },
+    });
+    const json = await response.json();
+    if (
+      json["status"] == "Request Moderated" ||
+      json["status"] == "Content Moderated"
+    ) {
+      clearInterval(polling);
+      Alpine.store("chat").add(
+        "assistant",
+        error("Request denied by Black Forest Labs."),
+      );
+    }
+    if (json["status"] === "Ready") {
+      clearInterval(polling);
+      const url = json["result"]["sample"];
+      Alpine.store("chat").add("assistant", `![${prompt}](${url})`);
+    }
+  }, 1000);
 }
 
 async function promptText(key) {
