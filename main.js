@@ -4,6 +4,10 @@ function submitKey(event) {
   document.getElementById("apiKey").blur();
 }
 
+function error(message) {
+  return `<span class='error'>Error: ${message}</span>`;
+}
+
 function submitPrompt(event) {
   event.preventDefault();
 
@@ -56,7 +60,9 @@ async function promptGPT(key, input) {
   if (!response.ok) {
     Alpine.store("chat").add(
       "assistant",
-      `<span class='error'>Error: POST https://api.openai.com/v1/chat/completions ${response.status}</span>`,
+      error(
+        `POST https://api.openai.com/v1/chat/completions ${response.status}`,
+      ),
     );
     return;
   }
@@ -68,7 +74,7 @@ async function promptGPT(key, input) {
   if (!reader) {
     Alpine.store("chat").add(
       "assistant",
-      `<span class='error'>Error: Failed to decode API response</span>`,
+      error("Failed to decode API response"),
     );
     return;
   }
